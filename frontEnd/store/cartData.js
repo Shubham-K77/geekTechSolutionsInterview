@@ -18,7 +18,13 @@ const cartSlice = createSlice({
         state.cartInfo[itemIndex].purchasedQuantity = quantity;
       }
     },
+    addToCart: (state, action) => {
+      const { itemData } = action.payload;
+      itemData.purchasedQuantity = 1;
+      itemData.totalPrice = itemData.price;
+      state.cartInfo.push(itemData);
+    },
   },
 });
 export default cartSlice.reducer;
-export const { getCartData, updateCartData } = cartSlice.actions;
+export const { getCartData, updateCartData, addToCart } = cartSlice.actions;
