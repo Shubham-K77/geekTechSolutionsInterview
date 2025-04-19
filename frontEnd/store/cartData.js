@@ -14,23 +14,39 @@ const cartSlice = createSlice({
       const { id, quantity } = action.payload;
       const itemIndex = state.cartInfo.findIndex((item) => item.id == id);
       if (itemIndex !== -1) {
-        state.cartInfo[itemIndex].totalPrice =
-          quantity * state.cartInfo[itemIndex].price;
-        state.cartInfo[itemIndex].purchasedQuantity = quantity;
+        const item = state.cartInfo[itemIndex];
+        const diff = quantity - item.purchasedQuantity;
+        const newQuantityLeft = item.quantity - diff;
+        const updatedItem = {
+          ...item,
+          totalPrice: quantity * item.price,
+          purchasedQuantity: quantity,
+          quantity: newQuantityLeft,
+        };
+        state.cartInfo[itemIndex] = updatedItem;
       }
     },
     addToCart: (state, action) => {
       const { itemData } = action.payload;
-      const item = state.cartInfo.find((i) => i.id === itemData.id);
-      if (item) {
-        item.purchasedQuantity += 1;
-        item.totalPrice = item.purchasedQuantity * item.price;
+      const itemIndex = state.cartInfo.findIndex((i) => i.id === itemData.id);
+      if (itemIndex !== -1) {
+        const existingItem = state.cartInfo[itemIndex];
+        if (existingItem.quantity <= 0) return;
+        const updatedItem = {
+          ...existingItem,
+          purchasedQuantity: existingItem.purchasedQuantity + 1,
+          totalPrice: (existingItem.purchasedQuantity + 1) * existingItem.price,
+          quantity: existingItem.quantity - 1,
+        };
+        state.cartInfo[itemIndex] = updatedItem;
       } else {
         const newItem = {
           ...itemData,
           purchasedQuantity: 1,
           totalPrice: itemData.price,
+          quantity: itemData.quantity - 1,
         };
+
         state.cartInfo.push(newItem);
       }
     },

@@ -9,16 +9,12 @@ import {
   CarouselNext, // Add these
 } from "@/components/ui/carousel";
 import { ItemCard } from "./components/custom/ItemCard";
-//Checking The Cart Function:
-import { useSelector } from "react-redux";
 const Home = () => {
   const { items } = useFetchItem();
-  const cartData = useSelector((state) => state.cart.cartInfo);
-  console.log(cartData);
   return (
     <div className="w-full min-h-screen flex flex-col justify-center items-start bg-gray-100">
       {/* Title Of The Section */}
-      <div className="mt-[2rem] mb-[2rem] ml-[2rem] text-[1.75rem] font-bold text-amber-900">
+      <div className="mt-[2rem] mb-[2rem] ml-[2rem] text-[2rem] font-semibold text-amber-900">
         Featured Products
       </div>
       {/* Displaying The Cards */}

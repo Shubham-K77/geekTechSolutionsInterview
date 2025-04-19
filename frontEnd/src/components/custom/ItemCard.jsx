@@ -6,11 +6,15 @@ import { useNavigate } from "react-router-dom";
 //Global State
 import { addToCart } from "../../../store/cartData";
 import { useDispatch } from "react-redux";
+//Notistack
+import { useSnackbar } from "notistack";
 export const ItemCard = ({ data }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { enqueueSnackbar } = useSnackbar();
   const updateDataAndNavigate = () => {
     dispatch(addToCart({ itemData: data }));
+    enqueueSnackbar(`${data.name} Added To Cart!`, { variant: "success" });
     navigate("/cart");
   };
   return (
