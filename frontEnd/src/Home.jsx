@@ -14,11 +14,11 @@ const Home = () => {
   return (
     <div className="w-full min-h-screen flex flex-col justify-center items-start bg-gray-100">
       {/* Title Of The Section */}
-      <div className="mt-[2rem] mb-[2rem] ml-[2rem] text-[1.35rem] font-bold text-amber-900">
+      <div className="mt-[2rem] mb-[2rem] ml-[2rem] text-[1.75rem] font-bold text-amber-900">
         Featured Products
       </div>
       {/* Displaying The Cards */}
-      <div className="mb-4 flex flex-wrap justify-center items-center w-full bg-transparent">
+      <div className="mb-4 flex justify-center items-center w-full bg-transparent">
         <Carousel
           opts={{
             align: "start",
@@ -31,7 +31,7 @@ const Home = () => {
           <CarouselContent>
             {items.map((productInfo) => (
               <CarouselItem
-                className="basis-1/2 md:basis-1/3 lg:basis-1/3"
+                className="w-full max-w-xs sm:max-w-sm md:basis-1/3 lg:basis-1/3 px-2 sm:overflow-x-hidden"
                 key={productInfo.id}
               >
                 <ItemCard data={productInfo} />

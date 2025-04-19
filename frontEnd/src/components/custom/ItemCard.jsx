@@ -19,7 +19,7 @@ export const ItemCard = ({ data }) => {
         }}
       ></div>
       {/* Product Category and Price Info */}
-      <div className="w-full flex justify-start items-center mb-[1.5rem]">
+      <div className="w-full flex justify-start items-center mb-[1.5rem] ml-[1.5rem] mt-[1rem]">
         {/* Items Info */}
         <div className="rounded-sm p-2 ml-2 mr-2 bg-amber-800 flex justify-center items-center">
           <div className="text-[0.95rem] font-semibold text-white">
