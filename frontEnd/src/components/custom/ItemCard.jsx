@@ -1,11 +1,18 @@
 /* eslint-disable react/prop-types */
 //Cart Icon
 import { MdOutlineShoppingCart } from "react-icons/md";
+//Routing
+import { useNavigate } from "react-router-dom";
 //Global State
 import { addToCart } from "../../../store/cartData";
 import { useDispatch } from "react-redux";
 export const ItemCard = ({ data }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const updateDataAndNavigate = () => {
+    dispatch(addToCart({ itemData: data }));
+    navigate("/cart");
+  };
   return (
     <div className="flex flex-col justify-start items-center w-full h-[70vh] bg-white rounded-sm shadow-sm hover:cursor-pointer hover:shadow-md mb-[2rem]">
       {/* Product Image */}
@@ -40,7 +47,7 @@ export const ItemCard = ({ data }) => {
       {/* Add To Cart */}
       <div
         className="w-[90%] h-[7.5vh] rounded-sm shadow-sm bg-amber-600 flex justify-center items-center mb-4 hover:cursor-pointer hover:bg-amber-500 transition-all ease-in-out duration-150 hover:scale-90"
-        onClick={() => dispatch(addToCart({ itemData: data }))}
+        onClick={() => updateDataAndNavigate()}
       >
         <div className="text-[1.10rem] font-semibold text-white mr-2">
           Add to Cart

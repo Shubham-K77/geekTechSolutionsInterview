@@ -20,11 +20,24 @@ const cartSlice = createSlice({
     },
     addToCart: (state, action) => {
       const { itemData } = action.payload;
-      itemData.purchasedQuantity = 1;
-      itemData.totalPrice = itemData.price;
-      state.cartInfo.push(itemData);
+      const item = state.cartInfo.find((i) => i.id === itemData.id);
+      if (item) {
+        item.purchasedQuantity += 1;
+        item.totalPrice = item.purchasedQuantity * item.price;
+      } else {
+        const newItem = {
+          ...itemData,
+          purchasedQuantity: 1,
+          totalPrice: itemData.price,
+        };
+        state.cartInfo.push(newItem);
+      }
+    },
+    clearCart: (state) => {
+      state.cartInfo = [];
     },
   },
 });
 export default cartSlice.reducer;
-export const { getCartData, updateCartData, addToCart } = cartSlice.actions;
+export const { getCartData, updateCartData, addToCart, clearCart } =
+  cartSlice.actions;
