@@ -7,7 +7,7 @@ import { RiSubtractFill } from "react-icons/ri";
 import { useDispatch } from "react-redux";
 //Import UseState Hook:
 import { useState } from "react";
-import { updateCartData } from "../../../store/cartData";
+import { updateCartData, deleteItem } from "../../../store/cartData";
 //NotiStack
 import { useSnackbar } from "notistack";
 const CartItemInfoCard = ({ data }) => {
@@ -34,20 +34,28 @@ const CartItemInfoCard = ({ data }) => {
     dispatch(updateCartData({ id, quantity }));
     enqueueSnackbar("Successfully Updated!", { variant: "success" });
   };
+  //Remove The Item From The Global State
+  const deleteData = (id) => {
+    dispatch(deleteItem({ itemId: id }));
+    enqueueSnackbar("Item removed from cart!", { variant: "info" });
+  };
   return (
-    <div className="w-[95%] h-[60vh] rounded-sm flex flex-col justify-start items-center mt-[2rem] mb-[2rem] bg-white shadow-sm">
+    <div className="w-[95%] h-[90vh] lg:h-[60vh] rounded-sm flex flex-col justify-start items-center mt-[2rem] mb-[2rem] bg-white shadow-sm">
       {/* Displaying Cancel Button  */}
       <div className="w-full flex justify-end items-center mb-2">
         {/* Cancel Button */}
-        <div className="w-[4%] h-[7vh] bg-amber-800 shadow-sm mr-[2rem] mt-[2rem] transition-all ease-in-out duration-150 hover:cursor-pointer hover:scale-105 flex justify-center items-center rounded-sm">
+        <div
+          className="w-[15%] lg:w-[4%] h-[7vh] bg-amber-800 shadow-sm mr-[2rem] mt-[2rem] transition-all ease-in-out duration-150 hover:cursor-pointer hover:scale-105 flex justify-center items-center rounded-sm"
+          onClick={() => deleteData(data.id)}
+        >
           <ImCross className="text-[1.5rem] font-semibold text-white" />
         </div>
       </div>
       {/* Displaying The Product In Cart */}
-      <div className="w-full flex justify-around items-center">
+      <div className="w-full flex flex-col justify-start items-center lg:flex-row lg:justify-around lg:items-center">
         {/* Displaying The Image */}
         <div
-          className="w-[20%] h-[40vh] bg-gray-400 rounded-sm"
+          className="w-[85%] mb-2 mt-2 lg:m-0 lg:w-[20%] h-[40vh] bg-gray-400 rounded-sm"
           style={{
             backgroundImage: `url(${data.imageUrl})`,
             backgroundPosition: "center",
@@ -56,9 +64,9 @@ const CartItemInfoCard = ({ data }) => {
           }}
         ></div>
         {/* Displaying The Information */}
-        <div className="w-[50%] h-[40vh] flex flex-col justify-start items-center bg-transparent">
+        <div className="w-[98%] lg:w-[50%] h-[40vh] flex flex-col justify-start items-center bg-transparent">
           {/* Product Title */}
-          <div className="mt-4 text-[1.5rem] font-semibold mb-4">
+          <div className="lg:mt-4 mt-2 text-[1.10rem] lg:text-[1.5rem] font-semibold mb-4">
             {data.name}
           </div>
           {/* Price, Category And Quantity Left */}
@@ -74,8 +82,8 @@ const CartItemInfoCard = ({ data }) => {
             </div>
           </div>
           {/* Total Quantity Purchased */}
-          <div className="w-full flex justify-center items-center mb-4">
-            <div className="mr-4 text-[1rem] font-semibold">
+          <div className="w-full flex justify-around lg:justify-center items-center mb-4">
+            <div className="lg:mr-4 text-[0.95rem] lg:text-[1rem] font-semibold">
               Total Quantity Purchased:
             </div>
             <div className="w-[45%] flex justify-center items-center">

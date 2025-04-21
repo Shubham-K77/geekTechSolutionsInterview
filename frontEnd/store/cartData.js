@@ -62,7 +62,6 @@ const cartSlice = createSlice({
         (acc, item) => acc + item.totalPrice,
         0
       );
-      return state.grandTotal;
     },
   },
 });
