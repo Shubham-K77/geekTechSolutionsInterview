@@ -3,6 +3,7 @@ import useCartFetchItem from "../hooks/useCartFetchItem";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { sumCart } from "../store/cartData";
+import DisplayTotalCard from "./components/custom/DisplayTotalCard";
 const Cart = () => {
   const dispatch = useDispatch();
   const { cardData } = useCartFetchItem();
@@ -13,7 +14,6 @@ const Cart = () => {
     }
     dispatch(sumCart());
   }, [cardData, dispatch]);
-  console.log(grandTotal);
   return (
     <div className="w-full min-h-screen flex flex-col justify-start items-center lg:items-start bg-gray-100">
       {/* Title Of The Page */}
@@ -27,6 +27,12 @@ const Cart = () => {
             <CartItemInfoCard data={item} key={item.id} />
           ))}
       </div>
+      {/* Rendering The Sum Cart Data */}
+      {cardData.length > 0 && (
+        <div className="w-full flex justify-center items-center">
+          <DisplayTotalCard totalPrice={grandTotal} />
+        </div>
+      )}
     </div>
   );
 };
